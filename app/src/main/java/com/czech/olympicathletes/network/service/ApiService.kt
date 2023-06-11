@@ -1,5 +1,7 @@
 package com.czech.olympicathletes.network.service
 
+import com.czech.olympicathletes.network.models.AthleteInfo
+import com.czech.olympicathletes.network.models.AthleteResults
 import com.czech.olympicathletes.network.models.Athletes
 import com.czech.olympicathletes.network.models.Games
 import retrofit2.Response
@@ -10,10 +12,20 @@ interface ApiService {
 
     @GET("games")
     suspend fun getGames(
-    ): Response<List<Games>>
+    ): List<Games>
 
-    @GET("/games/{id}/athletes")
+    @GET("games/{id}/athletes")
     suspend fun getAthletes(
-        @Path("id") gameId: Int,
-    ): Response<List<Athletes>>
+        @Path("id") gameId: Int
+    ): List<Athletes>
+
+    @GET("athletes/{id}/results")
+    suspend fun getAthleteResults(
+        @Path("id") athleteId: String,
+    ): List<AthleteResults>
+
+    @GET("athletes/{id}")
+    suspend fun getAthleteInfo(
+        @Path("id") athleteId: String
+    ): AthleteInfo
 }

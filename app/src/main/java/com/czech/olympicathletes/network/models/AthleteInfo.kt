@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class AthleteInfo(
     @SerializedName("athlete_id")
-    val athleteId: String?,
+    val athleteId: String,
     val name: String?,
     val surname: String?,
     val dateOfBirth: String?,

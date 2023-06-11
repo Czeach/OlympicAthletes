@@ -1,6 +1,5 @@
 package com.czech.olympicathletes.di
 
-import com.czech.olympicathletes.network.service.ApiClient
 import com.czech.olympicathletes.network.service.ApiService
 import com.czech.olympicathletes.utils.Constants
 import dagger.Module
@@ -46,9 +45,4 @@ object NetworkModule {
     fun provideApiService(
         retrofit: Retrofit
     ): ApiService = retrofit.create(ApiService::class.java)
-
-    @[Provides Singleton]
-    fun provideApiClient(
-        apiService: ApiService
-    ): ApiClient = ApiClient(apiService)
 }

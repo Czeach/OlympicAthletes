@@ -4,7 +4,8 @@ data class DataState<T>(
     val message: String? = null,
     val data: T? = null,
     val isLoading: Boolean = false,
-    val success: Boolean = false
+    val isSuccess: Boolean,
+    val isError: Boolean
 ) {
     companion object {
         fun <T> error(
@@ -13,6 +14,8 @@ data class DataState<T>(
             return DataState(
                 message = message,
                 data = null,
+                isError = true,
+                isSuccess = false
             )
         }
 
@@ -24,12 +27,15 @@ data class DataState<T>(
             return DataState(
                 message = message,
                 data = data,
-                success = success
+                isError = false,
+                isSuccess = success
             )
         }
 
         fun <T> loading() = DataState<T>(
-            isLoading = true
+            isLoading = true,
+            isError = false,
+            isSuccess = false,
         )
     }
 }

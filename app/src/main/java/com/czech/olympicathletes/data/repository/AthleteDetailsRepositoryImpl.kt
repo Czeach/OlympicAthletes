@@ -1,8 +1,8 @@
 package com.czech.olympicathletes.data.repository
 
-import com.czech.olympicathletes.network.models.Athletes
-import com.czech.olympicathletes.network.models.GameWithAthletes
-import com.czech.olympicathletes.network.models.Games
+import com.czech.olympicathletes.network.models.AthleteInfo
+import com.czech.olympicathletes.network.models.AthleteInfoWithResults
+import com.czech.olympicathletes.network.models.AthleteResults
 import com.czech.olympicathletes.network.service.ApiService
 import com.czech.olympicathletes.utils.DataState
 import kotlinx.coroutines.CoroutineDispatcher
@@ -10,30 +10,26 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.async
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
-class AthleteRepositoryImpl @Inject constructor(
+class AthleteDetailsRepositoryImpl @Inject constructor(
     private val apiService: ApiService,
     private val dispatcher: CoroutineDispatcher
-): AthleteRepository {
-    override fun getGamesWithAthletes(): Flow<DataState<List<GameWithAthletes>>> {
+): AthleteDetailsRepository {
+    override fun getAthleteInfoWithResults(athleteId: String): Flow<DataState<AthleteInfoWithResults>> {
         return flow {
             emit(DataState.loading())
 
             try {
-                val games = getGames()
-                val gameWithAthletes = games.map { game ->
-                    val athletes = getAthletes(game.gameId)
+                val athleteInfoWithResults = AthleteInfoWithResults(
+                    athleteInfo = getAthleteInfo(athleteId),
+                    athleteResults = getAthleteResults(athleteId)
+                )
 
-                    GameWithAthletes(
-                        games = game,
-                        athletes = athletes
-                    )
-                }
-
-                emit(DataState.success(data = gameWithAthletes))
+                emit(DataState.success(data = athleteInfoWithResults))
 
             } catch (e: IOException) {
                 emit(DataState.error(message = e.message ?: "Something went wrong"))
@@ -43,15 +39,15 @@ class AthleteRepositoryImpl @Inject constructor(
         }.flowOn(dispatcher)
     }
 
-    override suspend fun getGames(): List<Games> {
+    override suspend fun getAthleteInfo(athleteId: String): AthleteInfo {
         return withContext(dispatcher) {
-            apiService.getGames()
+            apiService.getAthleteInfo(athleteId = athleteId)
         }
     }
 
-    override suspend fun getAthletes(gameId: Int): List<Athletes> {
+    override suspend fun getAthleteResults(athleteId: String): List<AthleteResults> {
         return withContext(dispatcher) {
-            apiService.getAthletes(gameId = gameId)
+            apiService.getAthleteResults(athleteId = athleteId)
         }
     }
 }

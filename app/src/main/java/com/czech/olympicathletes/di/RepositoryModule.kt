@@ -1,9 +1,9 @@
 package com.czech.olympicathletes.di
 
+import com.czech.olympicathletes.data.repository.AthleteDetailsRepository
+import com.czech.olympicathletes.data.repository.AthleteDetailsRepositoryImpl
 import com.czech.olympicathletes.data.repository.AthleteRepository
 import com.czech.olympicathletes.data.repository.AthleteRepositoryImpl
-import com.czech.olympicathletes.data.repository.GamesRepository
-import com.czech.olympicathletes.data.repository.GamesRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -14,12 +14,12 @@ import javax.inject.Singleton
 abstract class RepositoryModule {
 
     @[Binds Singleton]
-    abstract fun provideGamesRepositoryImpl(
-        gamesRepositoryImpl: GamesRepositoryImpl
-    ): GamesRepository
-
-    @[Binds Singleton]
     abstract fun provideAthleteRepositoryImpl(
         athleteRepositoryImpl: AthleteRepositoryImpl
     ): AthleteRepository
+
+    @[Binds Singleton]
+    abstract fun provideAthleteDetailsRepository(
+        athleteDetailsRepositoryImpl: AthleteDetailsRepositoryImpl
+    ): AthleteDetailsRepository
 }

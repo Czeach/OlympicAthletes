@@ -14,28 +14,33 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.czech.olympicathletes.network.models.Athletes
+import com.czech.olympicathletes.network.models.GameWithAthletes
 import com.czech.olympicathletes.network.models.Games
 import com.czech.olympicathletes.ui.screens.athlete.AthletesListViewModel
 import com.czech.olympicathletes.ui.screens.states.AthleteListState
 
 @Composable
 fun GamesList(
-    games: List<Games>,
-    listState: LazyListState,
-    viewModel: AthletesListViewModel,
+    games: List<GameWithAthletes>,
+    onAthleteClicked: (String) -> Unit,
     modifier: Modifier
 ) {
     LazyColumn(
-        state = listState
+        state = rememberLazyListState(),
+        modifier = modifier
     ) {
         items(
-            items = games
+            items = games,
+            key = {
+                it.games.gameId
+            }
         ) { game ->
             GameItem(
                 modifier = Modifier,
                 game = game,
-//                athletes = athletes
-                viewModel = viewModel
+                onAthleteClicked = { athleteId ->
+                    onAthleteClicked(athleteId)
+                }
             )
         }
     }
@@ -44,21 +49,15 @@ fun GamesList(
 @Composable
 fun GameItem(
     modifier: Modifier,
-    game: Games,
-    viewModel: AthletesListViewModel
+    game: GameWithAthletes,
+    onAthleteClicked: (String) -> Unit,
 ) {
-
-    val athletesState = viewModel.athletesState.collectAsState().value
-
-    LaunchedEffect(key1 = game) {
-        game.gameId?.let { viewModel.getAthletes(it) }
-    }
     Column(
         modifier = modifier
             .padding(bottom = 20.dp)
     ) {
         Text(
-            text = "${game.city} ${game.year}",
+            text = "${game.games.city} ${game.games.year}",
             color = MaterialTheme.colorScheme.secondary,
             fontSize = 15.sp,
             fontWeight = FontWeight.W600,
@@ -69,43 +68,27 @@ fun GameItem(
         )
         Spacer(
             modifier = Modifier
-                .height(4.dp)
+                .height(10.dp)
         )
-        when (athletesState) {
-            is AthleteListState.Loading -> {
-
-            }
-            is AthleteListState.Success -> {
-                val athletes = athletesState.data
-
-                if (athletes != null) {
-
-                    AthletesList(
-                        athletes = athletes
-                    )
-                }
-            }
-            is AthleteListState.Error -> {
-
-            }
-            null -> {
-
-            }
+        if (game.athletes.isEmpty()) {
+            Text(
+                text = "No athletes available for ${game.games.city} ${game.games.year}",
+                color = MaterialTheme.colorScheme.secondary,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.W400,
+                fontFamily = FontFamily.SansSerif,
+                maxLines = 1,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+            )
         }
-//        LazyRow(
-//            modifier = Modifier
-//                .fillMaxSize()
-//
-//        ) {
-//            items(
-//                items = athletes
-//            ) { athletes ->
-//                AthleteItem(
-//                    modifier = Modifier
-//                        .padding(end = 4.dp),
-//                    athleteName = "${athletes.name} ${athletes.surname}"
-//                )
-//            }
-//        }
+        AthletesList(
+            athletes = game.athletes,
+            modifier = Modifier,
+            onAthleteClicked = { athleteId ->
+                onAthleteClicked(athleteId)
+            }
+        )
     }
 }
