@@ -1,4 +1,4 @@
-package com.czech.olympicathletes.utils
+package com.czech.olympicathletes.data.state
 
 data class DataState<T>(
     val message: String? = null,

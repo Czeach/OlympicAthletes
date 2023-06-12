@@ -1,23 +1,19 @@
 package com.czech.olympicathletes.ui.components
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.czech.olympicathletes.network.models.Athletes
 import com.czech.olympicathletes.network.models.GameWithAthletes
-import com.czech.olympicathletes.network.models.Games
-import com.czech.olympicathletes.ui.screens.athlete.AthletesListViewModel
-import com.czech.olympicathletes.ui.screens.states.AthleteListState
 
 @Composable
 fun GamesList(
@@ -32,7 +28,7 @@ fun GamesList(
         items(
             items = games,
             key = {
-                it.games.gameId
+                it.game.gameId
             }
         ) { game ->
             GameItem(
@@ -57,7 +53,7 @@ fun GameItem(
             .padding(bottom = 20.dp)
     ) {
         Text(
-            text = "${game.games.city} ${game.games.year}",
+            text = "${game.game.city} ${game.game.year}",
             color = MaterialTheme.colorScheme.secondary,
             fontSize = 15.sp,
             fontWeight = FontWeight.W600,
@@ -72,7 +68,7 @@ fun GameItem(
         )
         if (game.athletes.isEmpty()) {
             Text(
-                text = "No athletes available for ${game.games.city} ${game.games.year}",
+                text = "No athletes available for ${game.game.city} ${game.game.year}",
                 color = MaterialTheme.colorScheme.secondary,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.W400,

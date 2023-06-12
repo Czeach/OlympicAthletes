@@ -1,6 +1,6 @@
 package com.czech.olympicathletes.network.models
 
-data class AthleteInfoWithResults(
-    val athleteInfo: AthleteInfo,
+data class AthleteWithResults(
+    val athlete: Athletes,
     val athleteResults: List<AthleteResults>
 )

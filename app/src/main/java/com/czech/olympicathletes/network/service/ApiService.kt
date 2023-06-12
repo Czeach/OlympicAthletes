@@ -1,10 +1,8 @@
 package com.czech.olympicathletes.network.service
 
-import com.czech.olympicathletes.network.models.AthleteInfo
 import com.czech.olympicathletes.network.models.AthleteResults
 import com.czech.olympicathletes.network.models.Athletes
 import com.czech.olympicathletes.network.models.Games
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -27,5 +25,5 @@ interface ApiService {
     @GET("athletes/{id}")
     suspend fun getAthleteInfo(
         @Path("id") athleteId: String
-    ): AthleteInfo
+    ): Athletes
 }

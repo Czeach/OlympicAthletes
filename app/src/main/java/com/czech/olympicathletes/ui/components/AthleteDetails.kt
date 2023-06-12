@@ -9,7 +9,10 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.*
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -24,21 +27,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.czech.olympicathletes.R
-import com.czech.olympicathletes.network.models.AthleteInfo
-import com.czech.olympicathletes.network.models.AthleteInfoWithResults
+import com.czech.olympicathletes.network.models.AthleteWithResults
 import com.czech.olympicathletes.network.models.AthleteResults
+import com.czech.olympicathletes.network.models.Athletes
 import com.czech.olympicathletes.utils.Constants
-import com.halilibo.richtext.markdown.Markdown
-import com.halilibo.richtext.ui.*
-import com.halilibo.richtext.ui.material.MaterialRichText
-import com.halilibo.richtext.ui.string.RichTextStringStyle
+import com.czech.olympicathletes.utils.calculateGamePoints
 import com.mikepenz.markdown.Markdown
 import com.mikepenz.markdown.MarkdownDefaults
 
 @Composable
 fun AthleteDetails(
     modifier: Modifier,
-    athleteDetails: AthleteInfoWithResults
+    athleteDetails: AthleteWithResults
 ) {
     Column(
         modifier = modifier
@@ -57,7 +57,7 @@ fun AthleteDetails(
                 colors = CardDefaults.cardColors(
                 )
             ) {
-                val imageUrl = "${Constants.BASE_URL}athletes/${athleteDetails.athleteInfo.athleteId}/photo"
+                val imageUrl = "${Constants.BASE_URL}athletes/${athleteDetails.athlete.athleteId}/photo"
                 AsyncImage(
                     model = imageUrl,
                     contentDescription = "athlete image",
@@ -73,7 +73,7 @@ fun AthleteDetails(
             )
             AthleteInfo(
                 modifier = Modifier,
-                athleteInfo = athleteDetails.athleteInfo,
+                athlete = athleteDetails.athlete,
             )
         }
         Text(
@@ -115,7 +115,7 @@ fun AthleteDetails(
         )
         Markdown(
             content = """
-                    ${athleteDetails.athleteInfo.bio}
+                    ${athleteDetails.athlete.bio}
                 """.trimIndent(),
             colors = MarkdownDefaults.markdownColors(
                 textColor = MaterialTheme.colorScheme.secondary
@@ -148,7 +148,7 @@ fun AthleteDetails(
 @Composable
 fun AthleteInfo(
     modifier: Modifier,
-    athleteInfo: AthleteInfo
+    athlete: Athletes
 ) {
     Column {
         Spacer(
@@ -175,7 +175,7 @@ fun AthleteInfo(
                         fontFamily = FontFamily.SansSerif,
                     )
                 ) {
-                    append("${athleteInfo.name} ${athleteInfo.surname}")
+                    append("${athlete.name} ${athlete.surname}")
                 }
             },
             modifier = modifier
@@ -204,7 +204,7 @@ fun AthleteInfo(
                         fontFamily = FontFamily.SansSerif,
                     )
                 ) {
-                    append(athleteInfo.dateOfBirth.toString())
+                    append(athlete.dateOfBirth)
                 }
             },
             modifier = modifier
@@ -233,7 +233,7 @@ fun AthleteInfo(
                         fontFamily = FontFamily.SansSerif,
                     )
                 ) {
-                    append("${athleteInfo.weight}kg")
+                    append("${athlete.weight}kg")
                 }
             },
             modifier = modifier
@@ -262,7 +262,7 @@ fun AthleteInfo(
                         fontFamily = FontFamily.SansSerif,
                     )
                 ) {
-                    append("${athleteInfo.height}cm")
+                    append("${athlete.height}cm")
                 }
             },
             modifier = modifier
@@ -280,8 +280,10 @@ fun MedalsItem(
         modifier = modifier
             .fillMaxWidth()
     ) {
+        val gamePoints = calculateGamePoints(athleteResults)
+
         Text(
-            text = "${athleteResults.city} ${athleteResults.year}",
+            text = "${athleteResults.city} ${athleteResults.year} ($gamePoints pts)",
             color = MaterialTheme.colorScheme.secondary,
             fontSize = 16.sp,
             fontWeight = FontWeight.W600,
@@ -290,7 +292,7 @@ fun MedalsItem(
             modifier = modifier
                 .padding(start = 18.dp, end = 24.dp)
         )
-        if (athleteResults.gold!! > 0) {
+        if (athleteResults.gold > 0) {
             Text(
                 text = athleteResults.gold.toString(),
                 color = MaterialTheme.colorScheme.secondary,
@@ -309,7 +311,7 @@ fun MedalsItem(
                     .padding(end = 4.dp)
             )
         }
-        if (athleteResults.silver!! > 0) {
+        if (athleteResults.silver > 0) {
             Text(
                 text = athleteResults.silver.toString(),
                 color = MaterialTheme.colorScheme.secondary,
@@ -328,7 +330,7 @@ fun MedalsItem(
                     .padding(end = 4.dp)
             )
         }
-        if (athleteResults.bronze!! > 0) {
+        if (athleteResults.bronze > 0) {
             Text(
                 text = athleteResults.bronze.toString(),
                 color = MaterialTheme.colorScheme.secondary,

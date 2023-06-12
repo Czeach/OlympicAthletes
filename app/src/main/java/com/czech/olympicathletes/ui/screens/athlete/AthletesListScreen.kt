@@ -114,7 +114,7 @@ private fun AthletesListScreenPreview() {
             state = AthleteListState.Success(
                 data = (0..5).map {
                     GameWithAthletes(
-                        games = Games(
+                        game = Games(
                             gameId = Random.nextInt(),
                             city = "Barcelona",
                             year = 2023
@@ -124,11 +124,11 @@ private fun AthletesListScreenPreview() {
                                 athleteId = UUID.randomUUID().toString(),
                                 name = "Name",
                                 surname = "Surname",
-                                bio = null,
-                                dateOfBirth = null,
-                                weight = null,
-                                height = null,
-                                photoId = null
+                                bio = "",
+                                dateOfBirth = "",
+                                weight = 72,
+                                height = 45,
+                                photoId = 0
 
                             )
                         }

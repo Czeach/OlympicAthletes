@@ -7,16 +7,15 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.czech.olympicathletes.network.models.AthleteInfo
-import com.czech.olympicathletes.network.models.AthleteInfoWithResults
+import com.czech.olympicathletes.network.models.AthleteWithResults
 import com.czech.olympicathletes.network.models.AthleteResults
+import com.czech.olympicathletes.network.models.Athletes
 import com.czech.olympicathletes.ui.components.AthleteDetails
 import com.czech.olympicathletes.ui.components.ErrorState
 import com.czech.olympicathletes.ui.components.LoadingState
@@ -101,7 +100,7 @@ private fun Content(
                 is AthleteDetailsState.Success -> {
                     val athleteDetails = state.data
 
-                    val info = athleteDetails?.athleteInfo
+                    val info = athleteDetails?.athlete
 
                     title.value = "${info?.name} ${info?.surname} Details"
 
@@ -133,8 +132,8 @@ fun AthleteDetailScreenPreview() {
     OlympicAthletesTheme {
         Content(
             state = AthleteDetailsState.Success(
-                data = AthleteInfoWithResults(
-                    athleteInfo = AthleteInfo(
+                data = AthleteWithResults(
+                    athlete = Athletes(
                         UUID.randomUUID().toString(),
                         name = "Name",
                         surname = "Surname",
