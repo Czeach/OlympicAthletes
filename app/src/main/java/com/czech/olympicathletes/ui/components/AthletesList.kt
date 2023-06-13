@@ -14,11 +14,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.czech.olympicathletes.R
 import com.czech.olympicathletes.network.models.Athletes
 import com.czech.olympicathletes.utils.Constants
 
@@ -73,7 +75,7 @@ fun AthleteItem(
             val imageUrl = "${Constants.BASE_URL}athletes/${athlete.athleteId}/photo"
             AsyncImage(
                 model = imageUrl,
-                contentDescription = "athlete image",
+                contentDescription = stringResource(R.string.athlete_image),
                 contentScale = ContentScale.FillBounds,
                 modifier = Modifier
                     .fillMaxWidth()

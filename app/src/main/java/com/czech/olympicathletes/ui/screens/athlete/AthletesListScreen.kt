@@ -10,12 +10,14 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.czech.olympicathletes.R
 import com.czech.olympicathletes.network.models.Athletes
 import com.czech.olympicathletes.network.models.GameWithAthletes
 import com.czech.olympicathletes.network.models.Games
@@ -49,13 +51,13 @@ private fun Content(
     refresh: () -> Unit,
     onAthleteClicked: (String) -> Unit,
 ) {
-    val snackbarHostState = remember { SnackbarHostState() }
+    val snackBarHostState = remember { SnackbarHostState() }
 
     Scaffold(
-        snackbarHost = { SnackbarHost(snackbarHostState) },
+        snackbarHost = { SnackbarHost(snackBarHostState) },
         topBar = {
             Text(
-                text = "Olympic Athletes",
+                text = stringResource(R.string.olympic_athletes),
                 color = MaterialTheme.colorScheme.secondary,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.W700,
@@ -74,7 +76,7 @@ private fun Content(
             when (state) {
                 is AthleteListState.Loading -> {
                     LoadingState(
-                        text = "Fetching Athletes...",
+                        text = stringResource(R.string.fetching_details),
                         modifier = Modifier
                     )
                 }
@@ -95,7 +97,7 @@ private fun Content(
                 is AthleteListState.Error -> {
                     ErrorState(
                         message = state.message.toString(),
-                        btnText = "Try Again",
+                        btnText = stringResource(R.string.try_again),
                         onClick = { refresh() },
                         modifier = Modifier
                     )
@@ -116,16 +118,16 @@ private fun AthletesListScreenPreview() {
                     GameWithAthletes(
                         game = Games(
                             gameId = Random.nextInt(),
-                            city = "Barcelona",
+                            city = stringResource(R.string.city),
                             year = 2023
                         ),
                         athletes = (0..100).map {
                             Athletes(
                                 athleteId = UUID.randomUUID().toString(),
-                                name = "Name",
-                                surname = "Surname",
-                                bio = "",
-                                dateOfBirth = "",
+                                name = stringResource(R.string.name),
+                                surname = stringResource(R.string.surname),
+                                bio = stringResource(R.string.bio),
+                                dateOfBirth = stringResource(R.string.dob),
                                 weight = 72,
                                 height = 45,
                                 photoId = 0

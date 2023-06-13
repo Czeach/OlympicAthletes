@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">OlympicAthletes</string>
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
+    <string name="dob">14/04/1990</string>
+    <string name="bio">Arianna Fontana OMRI (born April 14, 1990) is an Italian short track speed skater, who has won eight Olympic medals, among these a gold in the 500m short track at the 2018 Winter Olympics in Pyeongchang. Her medal haul following the 2018 Games made her the female short track skater with the most Olympic medals, and tied her with male skaters Apolo Ohno and Viktor An. It also made her the Italian sportswoman with the second highest number of Winter Olympic medals, behind Stefania Belmondo. She specialises in the 500 m event. She is nicknamed La Freccia Bionda (The Blonde Arrow).\\n\\nBiography\\n=======\\nFontana started skating at the age of four, following in the footsteps of her brother Alessandro, initially on roller skates before switching to ice skating. She first trained in Lanzada until the rink there closed, when she switched her training base to Bormio.\\n\\nFontana made her international championship debut at the 2006 European Short Track Speed Skating Championships in Krynica-Zdrój, where she took the overall silver medal. At the 2006 Winter Olympics in Turin, she won bronze in the 3000 m relay. She placed 11th in the 500m and 6th in the 1000 m. The relay medal was the first for Italy in short track speed skating: at 15 years of age, Fontana became the youngest Italian to win a Winter Olympic medal. Following the 2006 Games, Fontana and her relay team-mates were appointed Knights of the Order of Merit of the Italian Republic.\\n\\nAt the 2010 Winter Olympics in Vancouver, she won a bronze medal in the 500 metre event, was eliminated in the semifinals of the 1500 metre event, and was eliminated in the quarterfinals of the 1000 metre event. Her 500m bronze made her the first Italian to take an individual Olympic medal in short track.\\n\\nFontano began dating Italian-American skater Anthony Lobello Jr. in 2012: the couple were engaged the following year and married in May 2014 in Colico. The couple split their time between homes in Valtellina, Courmayeur and Tallahassee, Florida.\\n\\nAt the 2014 Winter Olympics in Sochi, she was upgraded from a bronze to a silver medal in the 500 m event after colliding with British skater Elise Christie. Christie was disqualified after causing a crash in the final. She won a bronze medal in the 1500 m event and in the Team-event, and was disqualified in the 1000 m event. Following the Games, Lobello began coaching Fontana following his retirement from competition. The following year Fontana took her first title at the World Short Track Speed Skating Championships, winning the gold in the 1500m and taking the overall silver.\\n\\nIn October 2017, Fontana was named as Italy\'s flag bearer for the opening ceremony of the 2018 Winter Olympics in PyeongChang, South Korea. She was the first short track skater to be selected as flag bearer for the Italian Olympic team and the second flag bearer from the Italian Ice Sports Federation, after Carolina Kostner. She won her first Olympic gold medal there, in the 500 m event.She was the first European to win a 500 m Olympic gold. She also won silver in the team event and bronze in the 1000 m event, becoming the woman with most medals in the sport. It also meant that she had won Olympic medals at every contested distance.</string>
+    <string name="city">City</string>
+    <string name="try_again">Try Again</string>
+    <string name="fetching_details">Fetching Details…</string>
+    <string name="back_button">back_button</string>
+    <string name="olympic_athletes">Olympic Athletes</string>
+    <string name="athlete_image">athlete image</string>
+    <string name="bronze_medal">bronze medal</string>
+    <string name="silver_medal">silver medal</string>
+    <string name="gold_medal">gold medal</string>
+    <string name="height_heading">"Height: "</string>
+    <string name="weight_heading">"Weight: "</string>
+    <string name="bod_heading">"BOD: "</string>
+    <string name="name_heading">"Name: "</string>
+    <string name="bio_heading">Bio</string>
+    <string name="medals_heading">Medals</string>
 </resources>

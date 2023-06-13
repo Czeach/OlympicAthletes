@@ -2,16 +2,12 @@ package com.czech.olympicathletes.viewModels
 
 import androidx.lifecycle.SavedStateHandle
 import com.czech.olympicathletes.data.repository.AthleteDetailsRepositoryImpl
-import com.czech.olympicathletes.data.repository.AthletesRepositoryImpl
 import com.czech.olympicathletes.data.state.DataState
 import com.czech.olympicathletes.testUtils.CoroutinesRule
-import com.czech.olympicathletes.testUtils.DataMocks
 import com.czech.olympicathletes.testUtils.DataMocks.mockAthlete
 import com.czech.olympicathletes.testUtils.DataMocks.mockAthleteWithResults
-import com.czech.olympicathletes.ui.screens.athlete.AthletesListViewModel
 import com.czech.olympicathletes.ui.screens.detail.AthleteDetailViewModel
 import com.czech.olympicathletes.ui.screens.states.AthleteDetailsState
-import com.czech.olympicathletes.ui.screens.states.AthleteListState
 import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.mockk
