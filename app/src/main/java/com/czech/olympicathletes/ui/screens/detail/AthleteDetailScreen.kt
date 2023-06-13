@@ -1,8 +1,17 @@
 package com.czech.olympicathletes.ui.screens.detail
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material.pullrefresh.PullRefreshIndicator
+import androidx.compose.material.pullrefresh.pullRefresh
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -15,8 +24,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.czech.olympicathletes.R
-import com.czech.olympicathletes.network.models.AthleteWithResults
 import com.czech.olympicathletes.network.models.AthleteResults
+import com.czech.olympicathletes.network.models.AthleteWithResults
 import com.czech.olympicathletes.network.models.Athletes
 import com.czech.olympicathletes.ui.components.AthleteDetails
 import com.czech.olympicathletes.ui.components.ErrorState
@@ -32,22 +41,30 @@ fun AthleteDetailScreen(
     viewModel: AthleteDetailViewModel
 ) {
     val detailsState by viewModel.detailsState.collectAsState()
+    val refreshing by viewModel.isRefreshing.collectAsState()
 
     Content(
         state = detailsState,
         onBackPressed = { onBackPressed() },
-        refresh = { viewModel.getAthleteDetails() }
+        tryAgain = { viewModel.getAthleteDetails() },
+        refresh = { viewModel.swipeDownToRefresh() },
+        refreshing = refreshing,
 
     )
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun Content(
     state: AthleteDetailsState,
     onBackPressed: () -> Unit,
+    tryAgain: () -> Unit,
     refresh: () -> Unit,
+    refreshing: Boolean,
 ) {
     val snackBarHostState = remember { SnackbarHostState() }
+
+    val pullRefreshState = rememberPullRefreshState(refreshing = refreshing, onRefresh = { refresh() })
 
     val title = remember {
         mutableStateOf("")
@@ -91,6 +108,7 @@ private fun Content(
         Box(
             modifier = Modifier
                 .padding(padding)
+                .pullRefresh(pullRefreshState)
         ) {
             when (state) {
                 is AthleteDetailsState.Loading -> {
@@ -118,11 +136,19 @@ private fun Content(
                     ErrorState(
                         message = state.message.toString(),
                         btnText = stringResource(R.string.try_again),
-                        onClick = { refresh() },
+                        onClick = { tryAgain() },
                         modifier = Modifier
                     )
                 }
             }
+            PullRefreshIndicator(
+                refreshing = refreshing,
+                state = pullRefreshState,
+                backgroundColor = MaterialTheme.colorScheme.secondary,
+                contentColor = MaterialTheme.colorScheme.primary,
+                modifier = Modifier
+                    .align(Alignment.TopCenter)
+            )
         }
     }
 }
@@ -157,6 +183,8 @@ fun AthleteDetailScreenPreview() {
                 )
             ),
             onBackPressed = {},
+            tryAgain = {},
+            refreshing = false,
             refresh = {}
         )
     }

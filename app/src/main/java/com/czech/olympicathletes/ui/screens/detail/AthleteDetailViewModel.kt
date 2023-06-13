@@ -8,7 +8,6 @@ import com.czech.olympicathletes.ui.screens.states.AthleteDetailsState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,8 +23,19 @@ class AthleteDetailViewModel @Inject constructor(
         getAthleteDetails()
     }
 
+    private val _isRefreshing = MutableStateFlow(false)
+    val isRefreshing: StateFlow<Boolean>
+        get() = _isRefreshing
+
     private val _detailsState = MutableStateFlow<AthleteDetailsState>(AthleteDetailsState.Loading)
     val detailsState: StateFlow<AthleteDetailsState> = _detailsState
+
+    fun swipeDownToRefresh() {
+        viewModelScope.launch {
+            getAthleteDetails()
+            _isRefreshing.emit(false)
+        }
+    }
 
     fun getAthleteDetails() {
         viewModelScope.launch {
@@ -33,23 +43,23 @@ class AthleteDetailViewModel @Inject constructor(
                 athleteId = athleteId!!
             ).collect { state ->
                 if (state.isLoading) {
-                    _detailsState.update {
+                    _detailsState.emit(
                         AthleteDetailsState.Loading
-                    }
+                    )
                 }
                 if (state.isSuccess) {
-                    _detailsState.update {
+                    _detailsState.emit(
                         AthleteDetailsState.Success(
                             data = state.data
                         )
-                    }
+                    )
                 }
                 if (state.isError) {
-                    _detailsState.update {
+                    _detailsState.emit(
                         AthleteDetailsState.Error(
                             message = state.message
                         )
-                    }
+                    )
                 }
             }
         }
