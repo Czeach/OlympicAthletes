@@ -19,8 +19,8 @@ object DataMocks {
         AthleteResults(
             city = "City",
             year = 2018,
-            gold = 3,
-            silver = 1,
+            gold = 0,
+            silver = 0,
             bronze = 0
         )
     )

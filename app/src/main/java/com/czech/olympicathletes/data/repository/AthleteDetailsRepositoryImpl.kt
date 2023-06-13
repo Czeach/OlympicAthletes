@@ -20,7 +20,7 @@ class AthleteDetailsRepositoryImpl @Inject constructor(
     private val apiService: ApiService,
     private val dispatcher: CoroutineDispatcher
 ): AthleteDetailsRepository {
-    override fun getAthleteInfoWithResults(athleteId: String): Flow<DataState<AthleteWithResults>> {
+    override fun getAthleteWithResults(athleteId: String): Flow<DataState<AthleteWithResults>> {
         return flow {
             emit(DataState.loading())
 

@@ -5,11 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.czech.olympicathletes.data.repository.AthleteDetailsRepository
 import com.czech.olympicathletes.ui.screens.states.AthleteDetailsState
-import com.czech.olympicathletes.ui.screens.states.AthleteListState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -31,7 +29,7 @@ class AthleteDetailViewModel @Inject constructor(
 
     fun getAthleteDetails() {
         viewModelScope.launch {
-            athleteDetailsRepository.getAthleteInfoWithResults(
+            athleteDetailsRepository.getAthleteWithResults(
                 athleteId = athleteId!!
             ).collect { state ->
                 if (state.isLoading) {

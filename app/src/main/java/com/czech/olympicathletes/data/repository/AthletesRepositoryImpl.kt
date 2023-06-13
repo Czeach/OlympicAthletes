@@ -15,10 +15,10 @@ import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
-class AthleteRepositoryImpl @Inject constructor(
+class AthletesRepositoryImpl @Inject constructor(
     private val apiService: ApiService,
     private val dispatcher: CoroutineDispatcher
-): AthleteRepository {
+): AthletesRepository {
     override fun getGamesWithAthletes(): Flow<DataState<List<GameWithAthletes>>> {
         return flow {
             emit(DataState.loading())

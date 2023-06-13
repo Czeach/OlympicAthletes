@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface AthleteDetailsRepository {
 
-    fun getAthleteInfoWithResults(athleteId: String): Flow<DataState<AthleteWithResults>>
+    fun getAthleteWithResults(athleteId: String): Flow<DataState<AthleteWithResults>>
 
     suspend fun getAthleteInfo(athleteId: String): Athletes
 

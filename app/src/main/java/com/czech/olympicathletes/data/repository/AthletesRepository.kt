@@ -7,7 +7,7 @@ import com.czech.olympicathletes.network.models.Games
 import com.czech.olympicathletes.data.state.DataState
 import kotlinx.coroutines.flow.Flow
 
-interface AthleteRepository {
+interface AthletesRepository {
     fun getGamesWithAthletes(): Flow<DataState<List<GameWithAthletes>>>
     suspend fun getGames(): List<Games>
     suspend fun getAthletes(gameId: Int): List<Athletes>
