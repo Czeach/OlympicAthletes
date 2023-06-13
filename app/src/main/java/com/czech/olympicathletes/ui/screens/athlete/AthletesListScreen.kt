@@ -96,6 +96,7 @@ private fun Content(
                     LoadingState(
                         text = stringResource(R.string.fetching_athletes),
                         modifier = Modifier
+                            .testTag(stringResource(R.string.loading_state_test_tag))
                     )
                 }
                 is AthleteListState.Success -> {
@@ -105,7 +106,8 @@ private fun Content(
                             games = game,
                             modifier = Modifier
                                 .fillMaxSize()
-                                .padding(8.dp),
+                                .padding(8.dp)
+                                .testTag(stringResource(R.string.athlete_list_test_tag)),
                             onAthleteClicked = { athleteId ->
                                 onAthleteClicked(athleteId)
                             }
@@ -118,6 +120,7 @@ private fun Content(
                         btnText = stringResource(R.string.try_again),
                         onClick = { tryAgain() },
                         modifier = Modifier
+                            .testTag(stringResource(R.string.error_state_test_tag))
                     )
                 }
             }

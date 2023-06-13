@@ -68,7 +68,6 @@ fun AthleteItem(
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .testTag(stringResource(R.string.athlete_image))
                 .height(110.dp),
             shape = RoundedCornerShape(16.dp),
             colors = CardDefaults.cardColors(
@@ -81,6 +80,7 @@ fun AthleteItem(
                 contentScale = ContentScale.FillBounds,
                 modifier = Modifier
                     .fillMaxWidth()
+                    .testTag(stringResource(R.string.athlete_image))
                     .clickable {
                         onAthleteClicked()
                     }

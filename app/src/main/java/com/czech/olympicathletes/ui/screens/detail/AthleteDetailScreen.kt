@@ -80,7 +80,7 @@ private fun Content(
             Row(
                 horizontalArrangement = Arrangement.Start,
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
+                modifier = modifier
                     .padding(top = 6.dp, bottom = 6.dp)
                     .fillMaxWidth()
             ) {
@@ -122,6 +122,7 @@ private fun Content(
                     LoadingState(
                         text = stringResource(R.string.fetching_details),
                         modifier = Modifier
+                            .testTag(stringResource(R.string.loading_state_test_tag))
                     )
                 }
                 is AthleteDetailsState.Success -> {
@@ -136,6 +137,7 @@ private fun Content(
                             athleteDetails = details,
                             modifier = Modifier
                                 .padding(start = 10.dp, end = 10.dp, top = 6.dp)
+                                .testTag(stringResource(R.string.athlete_details_test_tag))
                         )
                     }
                 }
@@ -145,6 +147,7 @@ private fun Content(
                         btnText = stringResource(R.string.try_again),
                         onClick = { tryAgain() },
                         modifier = Modifier
+                            .testTag(stringResource(R.string.error_state_test_tag))
                     )
                 }
             }

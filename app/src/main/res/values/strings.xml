@@ -22,4 +22,9 @@
     <string name="medals_heading">Medals</string>
     <string name="athlete_list_screen_test_tag">athlete_list_screen_test_tag</string>
     <string name="athlete_detail_screen_test_tag">athlete_detail_screen_test_tag</string>
+    <string name="loading_state_test_tag">loading_state_test_tag</string>
+    <string name="athlete_list_test_tag">athlete_list_test_tag</string>
+    <string name="error_state_test_tag">error_state_test_tag</string>
+    <string name="try_again_btn_test_tag">try_again_btn_test_tag</string>
+    <string name="athlete_details_test_tag">athlete_details_test_tag</string>
 </resources>
