@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -67,6 +68,7 @@ fun AthleteItem(
         Card(
             modifier = Modifier
                 .fillMaxWidth()
+                .testTag(stringResource(R.string.athlete_image))
                 .height(110.dp),
             shape = RoundedCornerShape(16.dp),
             colors = CardDefaults.cardColors(

@@ -10,7 +10,7 @@
     <string name="fetching_athletes">Fetching Athletes…</string>
     <string name="back_button">back_button</string>
     <string name="olympic_athletes">Olympic Athletes</string>
-    <string name="athlete_image">athlete image</string>
+    <string name="athlete_image">athlete_image</string>
     <string name="bronze_medal">bronze medal</string>
     <string name="silver_medal">silver medal</string>
     <string name="gold_medal">gold medal</string>
@@ -20,4 +20,6 @@
     <string name="name_heading">"Name: "</string>
     <string name="bio_heading">Bio</string>
     <string name="medals_heading">Medals</string>
+    <string name="athlete_list_screen_test_tag">athlete_list_screen_test_tag</string>
+    <string name="athlete_detail_screen_test_tag">athlete_detail_screen_test_tag</string>
 </resources>

@@ -15,6 +15,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -37,7 +38,8 @@ import kotlin.random.Random
 @Composable
 fun AthletesListScreen(
     onAthleteClicked: (String) -> Unit,
-    viewModel: AthletesListViewModel
+    viewModel: AthletesListViewModel,
+    modifier: Modifier
 ) {
     val athleteState by viewModel.athletesState.collectAsState()
     val refreshing by viewModel.isRefreshing.collectAsState()
@@ -49,7 +51,8 @@ fun AthletesListScreen(
         refreshing = refreshing,
         onAthleteClicked = { athleteId ->
             onAthleteClicked(athleteId)
-        }
+        },
+        modifier = modifier
     )
 }
 
@@ -61,6 +64,7 @@ private fun Content(
     refresh: () -> Unit,
     refreshing: Boolean,
     onAthleteClicked: (String) -> Unit,
+    modifier: Modifier
 ) {
     val snackBarHostState = remember { SnackbarHostState() }
 
@@ -76,7 +80,7 @@ private fun Content(
                 fontWeight = FontWeight.W700,
                 fontFamily = FontFamily.SansSerif,
                 textAlign = TextAlign.Center,
-                modifier = Modifier
+                modifier = modifier
                     .padding(top = 14.dp, start = 16.dp)
                     .fillMaxWidth()
             )
@@ -163,7 +167,8 @@ private fun AthletesListScreenPreview() {
             tryAgain = {},
             onAthleteClicked = {},
             refreshing = false,
-            refresh = {}
+            refresh = {},
+            modifier = Modifier
         )
     }
 }

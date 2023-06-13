@@ -3,6 +3,7 @@ package com.czech.olympicathletes.ui.screens.detail
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
@@ -16,6 +17,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -38,7 +40,8 @@ import kotlin.random.Random
 @Composable
 fun AthleteDetailScreen(
     onBackPressed: () -> Unit,
-    viewModel: AthleteDetailViewModel
+    viewModel: AthleteDetailViewModel,
+    modifier: Modifier
 ) {
     val detailsState by viewModel.detailsState.collectAsState()
     val refreshing by viewModel.isRefreshing.collectAsState()
@@ -49,7 +52,7 @@ fun AthleteDetailScreen(
         tryAgain = { viewModel.getAthleteDetails() },
         refresh = { viewModel.swipeDownToRefresh() },
         refreshing = refreshing,
-
+        modifier = modifier
     )
 }
 
@@ -61,6 +64,7 @@ private fun Content(
     tryAgain: () -> Unit,
     refresh: () -> Unit,
     refreshing: Boolean,
+    modifier: Modifier
 ) {
     val snackBarHostState = remember { SnackbarHostState() }
 
@@ -84,6 +88,7 @@ private fun Content(
                     onClick = { onBackPressed() },
                     modifier = Modifier
                         .wrapContentSize()
+                        .testTag(stringResource(R.string.back_button))
                 ) {
                     Icon(
                         Icons.Rounded.ArrowBack,
@@ -103,7 +108,9 @@ private fun Content(
                 )
             }
 
-        }
+        },
+        modifier = modifier
+            .fillMaxSize()
     ) { padding ->
         Box(
             modifier = Modifier
@@ -185,7 +192,8 @@ fun AthleteDetailScreenPreview() {
             onBackPressed = {},
             tryAgain = {},
             refreshing = false,
-            refresh = {}
+            refresh = {},
+            modifier = Modifier
         )
     }
 }
