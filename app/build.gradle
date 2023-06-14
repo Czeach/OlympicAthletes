@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id 'org.jetbrains.kotlin.plugin.serialization'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -22,19 +23,29 @@ android {
             useSupportLibrary true
         }
     }
+    signingConfigs {
+        release {
+            storeFile file("/Users/ezichiamarachi/AndroidStudioProjects/OlympicAthletes/olympicathletesreleasekey")
+            storePassword "yellow"
+            keyAlias "olympicathleteskey"
+            keyPassword "yellow"
+        }
+    }
 
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            signingConfig signingConfigs.release
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = '17'
+        jvmTarget = '1.8'
     }
     buildFeatures {
         compose true
@@ -76,6 +87,10 @@ dependencies {
 
     // Coroutines Test
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1"
+
+    // Firebase
+    implementation platform('com.google.firebase:firebase-bom:32.1.0')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
 
     // Compose
     implementation platform("androidx.compose:compose-bom:2023.05.01")

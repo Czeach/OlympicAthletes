@@ -12,7 +12,7 @@ import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
@@ -48,7 +48,7 @@ class AthleteDetailViewModelTest {
     }
 
     @Test
-    fun testGetAthleteDetails() = runTest {
+    fun testGetAthleteDetails() = runBlocking {
 
         // Prepare mock data
         val mockAthleteWithResults = mockAthleteWithResults()

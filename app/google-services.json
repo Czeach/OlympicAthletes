@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "125522440221",
+    "project_id": "olympic-athletes-d1c3c",
+    "storage_bucket": "olympic-athletes-d1c3c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:125522440221:android:797b339b46c32b3f2616f4",
+        "android_client_info": {
+          "package_name": "com.czech.olympicathletes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "125522440221-u8e60hmeqqg8knfo3t2al7npogrj9oe9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.czech.olympicathletes",
+            "certificate_hash": "9cc31aab7fddb66132ad609c6a990f63c6d274e7"
+          }
+        },
+        {
+          "client_id": "125522440221-17ug348tnng3mr7hi8n153g34seu6tof.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCd9mlPExPHpwIzc9ajng19T94muUmRap8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "125522440221-17ug348tnng3mr7hi8n153g34seu6tof.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

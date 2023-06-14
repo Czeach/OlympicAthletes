@@ -10,7 +10,7 @@ import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -41,7 +41,7 @@ class AthletesListViewModelTest {
 
 
     @Test
-    fun testGetAthletes() = runTest(coroutinesRule.testDispatcher) {
+    fun testGetAthletes() = runBlocking {
 
         // Prepare mock data
         val mockGameWithAthletes = mockGameWithAthletes()
