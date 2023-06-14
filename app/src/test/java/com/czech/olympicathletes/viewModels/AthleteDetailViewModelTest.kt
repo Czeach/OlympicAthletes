@@ -30,8 +30,12 @@ class AthleteDetailViewModelTest {
 
     @Before
     fun setup() {
+
+        // Create a mock SavedStateHandle and assign a value for "athleteId"
         savedStateHandle = SavedStateHandle()
         savedStateHandle["athleteId"] = "3"
+
+        // Initialize the view model with the mock SavedStateHandle and repository
         viewModel = AthleteDetailViewModel(
             savedStateHandle,
             repository
@@ -46,9 +50,11 @@ class AthleteDetailViewModelTest {
     @Test
     fun testGetAthleteDetails() = runTest {
 
+        // Prepare mock data
         val mockAthleteWithResults = mockAthleteWithResults()
         val mockAthlete = mockAthlete()
 
+        // Mock the repository method to return a flow with the mock data
         coEvery { repository.getAthleteWithResults(mockAthlete.athleteId) } returns flow {
             emit(
                 DataState.success(
@@ -57,10 +63,13 @@ class AthleteDetailViewModelTest {
             )
         }
 
+        // Call the method to test
         viewModel.getAthleteDetails()
 
+        // Get the current state from the view model
         val state = viewModel.detailsState
 
+        // Assert the state against the expected success state
         Assert.assertEquals(
             AthleteDetailsState.Success(data = mockAthleteWithResults),
             state.value

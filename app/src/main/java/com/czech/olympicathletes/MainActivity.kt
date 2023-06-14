@@ -9,6 +9,10 @@ import com.czech.olympicathletes.ui.navigation.AppNavHost
 import com.czech.olympicathletes.ui.theme.OlympicAthletesTheme
 import dagger.hilt.android.AndroidEntryPoint
 
+
+/**
+ * app entry point. Launches app with base activity
+ */
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

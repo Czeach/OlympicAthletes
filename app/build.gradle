@@ -17,7 +17,7 @@ android {
         versionCode 1
         versionName '1.0'
 
-        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        testInstrumentationRunner 'com.czech.olympicathletes.testUtils.OATestRunner'
         vectorDrawables {
             useSupportLibrary true
         }
@@ -55,14 +55,17 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
 
-    // Compose Test
+    // AndroidJUnitRunner
+    androidTestImplementation 'androidx.test:runner:1.5.2'
+
+    // Compose test
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
     androidTestImplementation platform("androidx.compose:compose-bom:2023.05.01")
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
     debugImplementation 'androidx.compose.ui:ui-tooling'
 
+    // Hilt test
     androidTestImplementation 'com.google.dagger:hilt-android-testing:2.44'
-    // ...with Kotlin.
     kaptAndroidTest 'com.google.dagger:hilt-android-compiler:2.45'
 
     // Navigation test

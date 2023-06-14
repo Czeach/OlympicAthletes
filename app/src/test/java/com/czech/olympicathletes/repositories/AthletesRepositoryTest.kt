@@ -23,6 +23,7 @@ import org.junit.Rule
 import org.junit.Test
 import retrofit2.HttpException
 import retrofit2.Response
+import java.io.IOException
 
 class AthletesRepositoryTest {
 
@@ -34,6 +35,8 @@ class AthletesRepositoryTest {
 
     @Before
     fun setup() {
+        // Initialize the repository with mocked ApiService and test dispatcher
+
         repository = AthletesRepositoryImpl(
             apiService,
             coroutinesRule.testDispatcher
@@ -47,18 +50,22 @@ class AthletesRepositoryTest {
 
     @Test
     fun `getAthleteInfoWithResults() emits success when network call is successful`() = runTest {
+
+        // Prepare mock data and responses
         val mockResponse = listOf(mockGameWithAthletes())
         val mockAthleteResults = mockAthleteResults()
         val mockGame = mockGame()
         val mockAthlete = mockAthlete()
 
-
+        // Mock the API service methods and return the mock data
         coEvery { apiService.getGames() } returns listOf(mockGame)
         coEvery { apiService.getAthletes(mockGame.gameId) } returns listOf(mockAthlete)
         coEvery { apiService.getAthleteResults(mockAthlete.athleteId) } returns mockAthleteResults
 
+        // Call the repository method
         val result = repository.getGamesWithAthletes()
 
+        // Assert the result against the expected error state
         assertEquals(
             DataState.success(data = mockResponse),
             result.last()
@@ -66,7 +73,7 @@ class AthletesRepositoryTest {
     }
 
     @Test
-    fun `getAthleteInfoWithResults() catches exception and emits error when there's exception`() = runTest {
+    fun `getAthleteInfoWithResults() catches http exception and emits error`() = runTest {
         val exception = HttpException(
             Response.error<ResponseBody>(
                 404,
@@ -74,12 +81,28 @@ class AthletesRepositoryTest {
             )
         )
 
+        // Mock the API service method to throw the exception
         coEvery { apiService.getGames() } throws exception
 
         val result = repository.getGamesWithAthletes()
 
         assertEquals(
-            DataState.error<List<GameWithAthletes>>(message = "Error: ${exception.code()}"),
+            DataState.error<List<GameWithAthletes>>(message = exception.message ?: "Something went wrong"),
+            result.last()
+        )
+    }
+
+    @Test
+    fun `getAthleteInfoWithResults() catches io exception and emits error`() = runTest {
+        val exception = IOException()
+
+        // Mock the API service method to throw the exception
+        coEvery { apiService.getGames() } throws exception
+
+        val result = repository.getGamesWithAthletes()
+
+        assertEquals(
+            DataState.error<List<GameWithAthletes>>(message = exception.message ?: "Something went wrong"),
             result.last()
         )
     }

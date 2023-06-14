@@ -7,6 +7,9 @@ import com.czech.olympicathletes.network.models.Games
 import com.czech.olympicathletes.data.state.DataState
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * interface defining methods to load data from the backend
+ */
 interface AthletesRepository {
     fun getGamesWithAthletes(): Flow<DataState<List<GameWithAthletes>>>
     suspend fun getGames(): List<Games>

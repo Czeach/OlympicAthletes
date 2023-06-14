@@ -6,6 +6,9 @@ import com.czech.olympicathletes.network.models.Games
 import retrofit2.http.GET
 import retrofit2.http.Path
 
+/**
+ * connects to the backend to fetch data
+ */
 interface ApiService {
 
     @GET("games")

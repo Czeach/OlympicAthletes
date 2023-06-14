@@ -27,6 +27,8 @@ class AthletesListViewModelTest {
 
     @Before
     fun setup() {
+
+        // Initialize the view model with the mock repository
         viewModel = AthletesListViewModel(
             repository
         )
@@ -41,8 +43,10 @@ class AthletesListViewModelTest {
     @Test
     fun testGetAthletes() = runTest(coroutinesRule.testDispatcher) {
 
+        // Prepare mock data
         val mockGameWithAthletes = mockGameWithAthletes()
 
+        // Mock the repository method to return a flow with the mock data
         coEvery { repository.getGamesWithAthletes() } returns flow {
             emit(
                 DataState.success(
@@ -51,10 +55,13 @@ class AthletesListViewModelTest {
             )
         }
 
+        // Invoke the method under test
         viewModel.getAthletes()
 
+        // Get the current state from the view model
         val state = viewModel.athletesState
 
+        // Assert the state against the expected success state
         assertEquals(
             AthleteListState.Success(data = listOf(mockGameWithAthletes)),
             state.value

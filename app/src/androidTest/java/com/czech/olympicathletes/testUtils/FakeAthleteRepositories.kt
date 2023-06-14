@@ -9,7 +9,11 @@ import com.czech.olympicathletes.network.models.Games
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class FakeLoadingAthletesRepositoryImpl(): AthletesRepository {
+/**
+ * create fake athlete repositories for each DataState for testing
+ */
+
+class FakeLoadingAthletesRepositoryImpl : AthletesRepository {
     override fun getGamesWithAthletes(): Flow<DataState<List<GameWithAthletes>>> {
         return flow {
             emit(DataState.loading())
@@ -30,7 +34,7 @@ class FakeLoadingAthletesRepositoryImpl(): AthletesRepository {
 
 }
 
-class FakeSuccessAthletesRepositoryImpl(): AthletesRepository {
+class FakeSuccessAthletesRepositoryImpl : AthletesRepository {
     override fun getGamesWithAthletes(): Flow<DataState<List<GameWithAthletes>>> {
         return flow {
             emit(
@@ -53,7 +57,7 @@ class FakeSuccessAthletesRepositoryImpl(): AthletesRepository {
 
 }
 
-class FakeErrorAthletesRepositoryImpl(): AthletesRepository {
+class FakeErrorAthletesRepositoryImpl : AthletesRepository {
     override fun getGamesWithAthletes(): Flow<DataState<List<GameWithAthletes>>> {
         return flow {
             emit(

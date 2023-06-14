@@ -17,6 +17,10 @@ import com.czech.olympicathletes.ui.screens.athlete.AthletesListViewModel
 import com.czech.olympicathletes.ui.screens.detail.AthleteDetailScreen
 import com.czech.olympicathletes.ui.screens.detail.AthleteDetailViewModel
 
+/**
+ * app navigation graph.
+ * The navigation graph defined in this file defines the different routes in the app
+ */
 @Composable
 fun AppNavHost(
     navController: NavHostController

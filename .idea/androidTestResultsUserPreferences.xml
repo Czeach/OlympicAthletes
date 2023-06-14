@@ -117,6 +117,7 @@
                   <entry key="Duration" value="90" />
                   <entry key="Pixel_3a_API_34_extension_level_7_arm64-v8a" value="120" />
                   <entry key="Tests" value="360" />
+                  <entry key="adb-8ABY0H5UE-WjOMV5._adb-tls-connect._tcp." value="120" />
                 </map>
               </option>
             </AndroidTestResultsTableState>
@@ -156,6 +157,21 @@
                   <entry key="Duration" value="90" />
                   <entry key="Pixel_3a_API_34_extension_level_7_arm64-v8a" value="120" />
                   <entry key="Tests" value="360" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="2133270926">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Google&#10; Pixel 3 XL" value="120" />
+                  <entry key="Pixel_3a_API_34_extension_level_7_arm64-v8a" value="120" />
+                  <entry key="Tests" value="360" />
+                  <entry key="adb-8ABY0H5UE-WjOMV5._adb-tls-connect._tcp." value="120" />
                 </map>
               </option>
             </AndroidTestResultsTableState>

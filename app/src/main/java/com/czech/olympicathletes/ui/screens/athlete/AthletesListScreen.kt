@@ -68,6 +68,7 @@ private fun Content(
 ) {
     val snackBarHostState = remember { SnackbarHostState() }
 
+    // implement pull down to refresh
     val pullRefreshState = rememberPullRefreshState(refreshing = refreshing, onRefresh = { refresh() })
 
     Scaffold(
@@ -91,6 +92,8 @@ private fun Content(
                 .padding(padding)
                 .pullRefresh(pullRefreshState)
         ) {
+
+            // update UI state
             when (state) {
                 is AthleteListState.Loading -> {
                     LoadingState(
@@ -138,6 +141,9 @@ private fun Content(
 }
 
 
+/**
+ * athletes detail screen preview
+ */
 @Preview
 @Composable
 private fun AthletesListScreenPreview() {

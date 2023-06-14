@@ -8,19 +8,26 @@ import com.czech.olympicathletes.network.models.Athletes
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
+/**
+ * fake athlete object
+ */
 val fakeAthlete = Athletes(
-    athleteId = "5",
-    name = "Name",
-    surname = "Surname",
-    dateOfBirth = "6/4/1992",
-    bio = "This is the bio here",
-    weight = 10,
-    height = 10,
-    photoId = 40,
-    points = 3
+    athleteId = "",
+    name = "",
+    surname = "",
+    dateOfBirth = "",
+    bio = "",
+    weight = 0,
+    height = 0,
+    photoId = 0,
+    points = 0
 )
 
-class FakeLoadingAthleteDetailsRepositoryImpl(): AthleteDetailsRepository {
+/**
+ * create fake athlete detail repositories for each DataState for testing
+ */
+
+class FakeLoadingAthleteDetailsRepositoryImpl : AthleteDetailsRepository {
     override fun getAthleteWithResults(athleteId: String): Flow<DataState<AthleteWithResults>> {
         return flow {
             emit(
@@ -30,7 +37,7 @@ class FakeLoadingAthleteDetailsRepositoryImpl(): AthleteDetailsRepository {
         }
     }
 
-    override suspend fun getAthleteInfo(athleteId: String): Athletes {
+    override suspend fun getAthleteDetails(athleteId: String): Athletes {
         return fakeAthlete
     }
 
@@ -40,7 +47,7 @@ class FakeLoadingAthleteDetailsRepositoryImpl(): AthleteDetailsRepository {
 
 }
 
-class FakeErrorAthleteDetailsRepositoryImpl(): AthleteDetailsRepository {
+class FakeErrorAthleteDetailsRepositoryImpl : AthleteDetailsRepository {
     override fun getAthleteWithResults(athleteId: String): Flow<DataState<AthleteWithResults>> {
         return flow {
             emit(
@@ -50,7 +57,7 @@ class FakeErrorAthleteDetailsRepositoryImpl(): AthleteDetailsRepository {
         }
     }
 
-    override suspend fun getAthleteInfo(athleteId: String): Athletes {
+    override suspend fun getAthleteDetails(athleteId: String): Athletes {
         return fakeAthlete
     }
 
@@ -60,7 +67,7 @@ class FakeErrorAthleteDetailsRepositoryImpl(): AthleteDetailsRepository {
 
 }
 
-class FakeSuccessAthleteDetailsRepositoryImpl(): AthleteDetailsRepository {
+class FakeSuccessAthleteDetailsRepositoryImpl : AthleteDetailsRepository {
     override fun getAthleteWithResults(athleteId: String): Flow<DataState<AthleteWithResults>> {
         return flow {
             emit(
@@ -75,7 +82,7 @@ class FakeSuccessAthleteDetailsRepositoryImpl(): AthleteDetailsRepository {
         }
     }
 
-    override suspend fun getAthleteInfo(athleteId: String): Athletes {
+    override suspend fun getAthleteDetails(athleteId: String): Athletes {
         return fakeAthlete
     }
 

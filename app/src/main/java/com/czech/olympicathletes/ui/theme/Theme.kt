@@ -10,6 +10,9 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 
+/**
+ * define colors for each theme
+ */
 private val DarkColorScheme = darkColorScheme(
     primary = black,
     secondary = white,
@@ -31,6 +34,9 @@ private val LightColorScheme = lightColorScheme(
     */
 )
 
+/**
+ * define app theme
+ */
 @Composable
 fun OlympicAthletesTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
