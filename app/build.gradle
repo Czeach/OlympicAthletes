@@ -9,12 +9,13 @@ plugins {
 
 android {
     namespace 'com.czech.olympicathletes'
-    compileSdk 34
+    compileSdk 33
 
     defaultConfig {
         applicationId 'com.czech.olympicathletes'
         minSdk 24
-        targetSdk 34
+        //noinspection OldTargetApi
+        targetSdk 33
         versionCode 1
         versionName '1.0'
 
@@ -24,6 +25,13 @@ android {
         }
     }
     signingConfigs {
+        debug {
+            storeFile file("/Users/ezichiamarachi/AndroidStudioProjects/OlympicAthletes/olympicathletesreleasekey")
+            storePassword "yellow"
+            keyAlias "olympicathleteskey"
+            keyPassword "yellow"
+        }
+
         release {
             storeFile file("/Users/ezichiamarachi/AndroidStudioProjects/OlympicAthletes/olympicathletesreleasekey")
             storePassword "yellow"
@@ -33,6 +41,12 @@ android {
     }
 
     buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            signingConfig signingConfigs.debug
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'

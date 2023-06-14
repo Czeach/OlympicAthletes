@@ -30,5 +30,7 @@ This app can run on any android emulator or device with at least android version
     * run `fastlane test` to run unit tests
     * run `fastlane beta` to send a release build apk to your email address.
       (in OlympicAthletes/fastlane/Fastfile, add an email address to the `testers` parameter of
-      firebase_app_distribution in the `:beta` >lane)
+      firebase_app_distribution in the `:beta` lane)
+  
+app.release.apk is included in the project root file.
 
