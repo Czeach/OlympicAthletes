@@ -26,9 +26,9 @@ to their points
 This app can run on any android emulator or device with at least android version 7.0.
 
 * on a terminal in the project's root folder
-    * run ```fastlane build``` to build the project
-    * run ```fastlane test``` to run unit tests
-    * run ```fastlane beta``` to send a release build apk to your email address. (in
-      /Users/zennymorh/Amarachi/Projects/OlympicAthletes/fastlane/Fastfile, add an email address to
-      the "testers" parameter of firebase_app_distribution in the :beta lane )
+    * run `fastlane build` to build the project
+    * run `fastlane test` to run unit tests
+    * run `fastlane beta` to send a release build apk to your email address.
+      (in OlympicAthletes/fastlane/Fastfile, add an email address to the `testers` parameter of
+      firebase_app_distribution in the `:beta` >lane)
 
