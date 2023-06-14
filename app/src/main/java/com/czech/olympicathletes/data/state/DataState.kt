@@ -1,5 +1,8 @@
 package com.czech.olympicathletes.data.state
 
+/**
+ * used to observe states of data from the backend
+ */
 data class DataState<T>(
     val message: String? = null,
     val data: T? = null,

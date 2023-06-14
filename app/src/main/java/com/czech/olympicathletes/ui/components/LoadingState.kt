@@ -33,7 +33,7 @@ fun LoadingState(
                 fontFamily = FontFamily.SansSerif,
             )
             Spacer(
-                modifier = modifier
+                modifier = Modifier
                     .height(10.dp)
             )
             CircularProgressIndicator(

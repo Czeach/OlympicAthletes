@@ -11,8 +11,6 @@ class CoroutinesRule(
     val testDispatcher: TestDispatcher = UnconfinedTestDispatcher()
 ): TestWatcher() {
 
-    val testScope = TestScope(testDispatcher)
-
     override fun starting(description: Description) {
         Dispatchers.setMain(testDispatcher)
     }

@@ -9,10 +9,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.czech.olympicathletes.R
 
 @Composable
 fun ErrorState(
@@ -37,7 +40,7 @@ fun ErrorState(
                 fontFamily = FontFamily.SansSerif,
             )
             Spacer(
-                modifier = modifier
+                modifier = Modifier
                     .height(10.dp)
             )
             Button(
@@ -45,7 +48,9 @@ fun ErrorState(
                     containerColor = MaterialTheme.colorScheme.secondary
                 ),
                 shape = RoundedCornerShape(6.dp),
-                onClick = { onClick() }
+                onClick = { onClick() },
+                modifier = Modifier
+                    .testTag(stringResource(R.string.try_again_btn_test_tag))
             ) {
                 Text(
                     text = btnText,

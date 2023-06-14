@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -60,7 +61,7 @@ fun AthleteDetails(
                 val imageUrl = "${Constants.BASE_URL}athletes/${athleteDetails.athlete.athleteId}/photo"
                 AsyncImage(
                     model = imageUrl,
-                    contentDescription = "athlete image",
+                    contentDescription = stringResource(R.string.athlete_image),
                     contentScale = ContentScale.FillBounds,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -77,7 +78,7 @@ fun AthleteDetails(
             )
         }
         Text(
-            text = "Medals",
+            text = stringResource(R.string.medals_heading),
             color = MaterialTheme.colorScheme.secondary,
             fontSize = 20.sp,
             fontWeight = FontWeight.W700,
@@ -104,7 +105,7 @@ fun AthleteDetails(
             }
         }
         Text(
-            text = "Bio",
+            text = stringResource(R.string.bio_heading),
             color = MaterialTheme.colorScheme.secondary,
             fontSize = 20.sp,
             fontWeight = FontWeight.W700,
@@ -165,7 +166,7 @@ fun AthleteInfo(
                         fontFamily = FontFamily.SansSerif,
                     )
                 ) {
-                    append("Name: ")
+                    append(stringResource(R.string.name_heading))
                 }
                 withStyle(
                     style = SpanStyle(
@@ -194,7 +195,7 @@ fun AthleteInfo(
                         fontFamily = FontFamily.SansSerif,
                     )
                 ) {
-                    append("BOD: ")
+                    append(stringResource(R.string.bod_heading))
                 }
                 withStyle(
                     style = SpanStyle(
@@ -223,7 +224,7 @@ fun AthleteInfo(
                         fontFamily = FontFamily.SansSerif,
                     )
                 ) {
-                    append("Weight: ")
+                    append(stringResource(R.string.weight_heading))
                 }
                 withStyle(
                     style = SpanStyle(
@@ -252,7 +253,7 @@ fun AthleteInfo(
                         fontFamily = FontFamily.SansSerif,
                     )
                 ) {
-                    append("Height: ")
+                    append(stringResource(R.string.height_heading))
                 }
                 withStyle(
                     style = SpanStyle(
@@ -304,7 +305,7 @@ fun MedalsItem(
             )
             Image(
                 painter = painterResource(id = R.drawable.gold_medal),
-                contentDescription = "gold medal",
+                contentDescription = stringResource(R.string.gold_medal),
                 modifier = modifier
                     .height(20.dp)
                     .width(20.dp)
@@ -323,7 +324,7 @@ fun MedalsItem(
             )
             Image(
                 painter = painterResource(id = R.drawable.silver_medal),
-                contentDescription = "silver medal",
+                contentDescription = stringResource(R.string.silver_medal),
                 modifier = modifier
                     .height(20.dp)
                     .width(20.dp)
@@ -342,7 +343,7 @@ fun MedalsItem(
             )
             Image(
                 painter = painterResource(id = R.drawable.bronze_medal),
-                contentDescription = "bronze medal",
+                contentDescription = stringResource(R.string.bronze_medal),
                 modifier = modifier
                     .height(20.dp)
                     .width(20.dp)

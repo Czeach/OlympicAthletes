@@ -4,13 +4,12 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.czech.olympicathletes.data.repository.AthleteDetailsRepository
+import com.czech.olympicathletes.data.state.DataState
+import com.czech.olympicathletes.network.models.AthleteWithResults
 import com.czech.olympicathletes.ui.screens.states.AthleteDetailsState
-import com.czech.olympicathletes.ui.screens.states.AthleteListState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,40 +19,62 @@ class AthleteDetailViewModel @Inject constructor(
     private val athleteDetailsRepository: AthleteDetailsRepository
 ): ViewModel() {
 
+    /**
+     * Retrieve the selected athlete ID from the SavedStateHandle
+     */
     private val athleteId = savedStateHandle.get<String>("athleteId")
 
+    /**
+     * collect data on initialisation of view model
+     */
     init {
         getAthleteDetails()
     }
 
+    /**
+     * refresh state
+     */
+    private val _isRefreshing = MutableStateFlow(false)
+    val isRefreshing: StateFlow<Boolean>
+        get() = _isRefreshing
+
+    /**
+     * state flow object that store data states
+     */
     private val _detailsState = MutableStateFlow<AthleteDetailsState>(AthleteDetailsState.Loading)
     val detailsState: StateFlow<AthleteDetailsState> = _detailsState
 
+    /**
+     * Refresh the athlete details
+     */
+    fun swipeDownToRefresh() {
+        viewModelScope.launch {
+            getAthleteDetails()
+            _isRefreshing.emit(false)
+        }
+    }
+
+    /**
+     * Retrieve athlete details from the repository and emit them into the state flow
+     */
     fun getAthleteDetails() {
         viewModelScope.launch {
-            athleteDetailsRepository.getAthleteInfoWithResults(
+            athleteDetailsRepository.getAthleteWithResults(
                 athleteId = athleteId!!
             ).collect { state ->
-                if (state.isLoading) {
-                    _detailsState.update {
-                        AthleteDetailsState.Loading
-                    }
-                }
-                if (state.isSuccess) {
-                    _detailsState.update {
-                        AthleteDetailsState.Success(
-                            data = state.data
-                        )
-                    }
-                }
-                if (state.isError) {
-                    _detailsState.update {
-                        AthleteDetailsState.Error(
-                            message = state.message
-                        )
-                    }
-                }
+                _detailsState.emit(state.toAthleteDetailsState())
             }
+        }
+    }
+
+    /**
+     * Extension function to convert DataState to AthleteDetailsState
+     */
+    private fun DataState<AthleteWithResults>.toAthleteDetailsState(): AthleteDetailsState {
+        return when {
+            isLoading -> AthleteDetailsState.Loading
+            isError -> AthleteDetailsState.Error(message)
+            else -> AthleteDetailsState.Success(data)
         }
     }
 }

@@ -4,18 +4,26 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.pullrefresh.PullRefreshIndicator
+import androidx.compose.material.pullrefresh.pullRefresh
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.czech.olympicathletes.R
 import com.czech.olympicathletes.network.models.Athletes
 import com.czech.olympicathletes.network.models.GameWithAthletes
 import com.czech.olympicathletes.network.models.Games
@@ -30,38 +38,50 @@ import kotlin.random.Random
 @Composable
 fun AthletesListScreen(
     onAthleteClicked: (String) -> Unit,
-    viewModel: AthletesListViewModel
+    viewModel: AthletesListViewModel,
+    modifier: Modifier
 ) {
     val athleteState by viewModel.athletesState.collectAsState()
+    val refreshing by viewModel.isRefreshing.collectAsState()
 
     Content(
         state = athleteState,
-        refresh = {viewModel.getAthletes()},
+        tryAgain = {viewModel.getAthletes()},
+        refresh = { viewModel.swipeDownToRefresh() },
+        refreshing = refreshing,
         onAthleteClicked = { athleteId ->
             onAthleteClicked(athleteId)
-        }
+        },
+        modifier = modifier
     )
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun Content(
     state: AthleteListState,
+    tryAgain: () -> Unit,
     refresh: () -> Unit,
+    refreshing: Boolean,
     onAthleteClicked: (String) -> Unit,
+    modifier: Modifier
 ) {
-    val snackbarHostState = remember { SnackbarHostState() }
+    val snackBarHostState = remember { SnackbarHostState() }
+
+    // implement pull down to refresh
+    val pullRefreshState = rememberPullRefreshState(refreshing = refreshing, onRefresh = { refresh() })
 
     Scaffold(
-        snackbarHost = { SnackbarHost(snackbarHostState) },
+        snackbarHost = { SnackbarHost(snackBarHostState) },
         topBar = {
             Text(
-                text = "Olympic Athletes",
+                text = stringResource(R.string.olympic_athletes),
                 color = MaterialTheme.colorScheme.secondary,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.W700,
                 fontFamily = FontFamily.SansSerif,
                 textAlign = TextAlign.Center,
-                modifier = Modifier
+                modifier = modifier
                     .padding(top = 14.dp, start = 16.dp)
                     .fillMaxWidth()
             )
@@ -70,12 +90,16 @@ private fun Content(
         Box(
             modifier = Modifier
                 .padding(padding)
+                .pullRefresh(pullRefreshState)
         ) {
+
+            // update UI state
             when (state) {
                 is AthleteListState.Loading -> {
                     LoadingState(
-                        text = "Fetching Athletes...",
+                        text = stringResource(R.string.fetching_athletes),
                         modifier = Modifier
+                            .testTag(stringResource(R.string.loading_state_test_tag))
                     )
                 }
                 is AthleteListState.Success -> {
@@ -85,7 +109,8 @@ private fun Content(
                             games = game,
                             modifier = Modifier
                                 .fillMaxSize()
-                                .padding(8.dp),
+                                .padding(8.dp)
+                                .testTag(stringResource(R.string.athlete_list_test_tag)),
                             onAthleteClicked = { athleteId ->
                                 onAthleteClicked(athleteId)
                             }
@@ -95,17 +120,30 @@ private fun Content(
                 is AthleteListState.Error -> {
                     ErrorState(
                         message = state.message.toString(),
-                        btnText = "Try Again",
-                        onClick = { refresh() },
+                        btnText = stringResource(R.string.try_again),
+                        onClick = { tryAgain() },
                         modifier = Modifier
+                            .testTag(stringResource(R.string.error_state_test_tag))
                     )
                 }
             }
+
+            PullRefreshIndicator(
+                refreshing = refreshing,
+                state = pullRefreshState,
+                backgroundColor = MaterialTheme.colorScheme.secondary,
+                contentColor = MaterialTheme.colorScheme.primary,
+                modifier = Modifier
+                    .align(Alignment.TopCenter)
+            )
         }
     }
 }
 
 
+/**
+ * athletes detail screen preview
+ */
 @Preview
 @Composable
 private fun AthletesListScreenPreview() {
@@ -116,16 +154,16 @@ private fun AthletesListScreenPreview() {
                     GameWithAthletes(
                         game = Games(
                             gameId = Random.nextInt(),
-                            city = "Barcelona",
+                            city = stringResource(R.string.city),
                             year = 2023
                         ),
                         athletes = (0..100).map {
                             Athletes(
                                 athleteId = UUID.randomUUID().toString(),
-                                name = "Name",
-                                surname = "Surname",
-                                bio = "",
-                                dateOfBirth = "",
+                                name = stringResource(R.string.name),
+                                surname = stringResource(R.string.surname),
+                                bio = stringResource(R.string.bio),
+                                dateOfBirth = stringResource(R.string.dob),
                                 weight = 72,
                                 height = 45,
                                 photoId = 0
@@ -135,8 +173,11 @@ private fun AthletesListScreenPreview() {
                     )
                 }
             ),
+            tryAgain = {},
+            onAthleteClicked = {},
+            refreshing = false,
             refresh = {},
-            onAthleteClicked = {}
+            modifier = Modifier
         )
     }
 }
