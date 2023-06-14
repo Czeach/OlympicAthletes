@@ -21,7 +21,7 @@ to their points
 * JUnit and Mockk for unit and instrumented tests
 * Fastlane with Firebase CLI for app automation
 
-## Instructions to run
+## Instructions to execute
 
 This app can run on any android emulator or device with at least android version 7.0.
 
